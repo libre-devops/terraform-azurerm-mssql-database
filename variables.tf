@@ -29,7 +29,7 @@ variable "mssql_databases" {
     identity_ids                                               = optional(list(string))
     transparent_data_encryption_enabled                        = optional(bool, true)
     transparent_data_encryption_key_vault_key_id               = optional(string)
-    transparent_data_encryption_key_automatic_rotation_enabled = optional(bool, false)
+    transparent_data_encryption_key_automatic_rotation_enabled = optional(bool)
     zone_redundant                                             = optional(bool, false)
     secondary_type                                             = optional(string)
 

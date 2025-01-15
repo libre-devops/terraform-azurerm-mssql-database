@@ -157,9 +157,12 @@ module "mssql_databases" {
 
   mssql_databases = [
     {
-      server_id = azurerm_mssql_server.this["main"].id
-      sku_name  = "GP_S_Gen5_2"
-      collation = "SQL_Latin1_General_CP1_CI_AS"
+      name                        = "libredevopstable"
+      server_id                   = module.mssql_servers.mssql_server_id["mssql-server-${var.short}-${var.loc}-${var.env}-01"]
+      sku_name                    = "GP_S_Gen5_2"
+      collation                   = "SQL_Latin1_General_CP1_CI_AS"
+      min_capacity                = 2
+      auto_pause_delay_in_minutes = 60
     }
   ]
 }

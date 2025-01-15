@@ -41,23 +41,7 @@ resource "azurerm_mssql_database" "this" {
   # Transparent data encryption
   transparent_data_encryption_enabled                        = try(each.value.transparent_data_encryption_enabled, true)
   transparent_data_encryption_key_vault_key_id               = try(each.value.transparent_data_encryption_key_vault_key_id, null)
-  transparent_data_encryption_key_automatic_rotation_enabled = try(each.value.transparent_data_encryption_key_automatic_rotation_enabled, false)
-
-
-  dynamic "identity" {
-    for_each = each.value.identity_type == "SystemAssigned" ? [each.value.identity_type] : []
-    content {
-      type = each.value.identity_type
-    }
-  }
-
-  dynamic "identity" {
-    for_each = each.value.identity_type == "SystemAssigned, UserAssigned" ? [each.value.identity_type] : []
-    content {
-      type         = each.value.identity_type
-      identity_ids = try(each.value.identity_ids, [])
-    }
-  }
+  transparent_data_encryption_key_automatic_rotation_enabled = try(each.value.transparent_data_encryption_key_automatic_rotation_enabled, null)
 
   dynamic "identity" {
     for_each = each.value.identity_type == "UserAssigned" ? [each.value.identity_type] : []
