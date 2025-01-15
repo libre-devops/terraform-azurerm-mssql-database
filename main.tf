@@ -11,26 +11,26 @@ resource "azurerm_mssql_database" "this" {
   server_id = each.value.server_id
 
   # Optional fields with defaults
-  create_mode                  = try(each.value.create_mode, "Default")
-  collation                    = try(each.value.collation, "SQL_Latin1_General_CP1_CI_AS")
-  enclave_type                 = try(each.value.enclave_type, null)
-  geo_backup_enabled           = try(each.value.geo_backup_enabled, false)
-  ledger_enabled               = try(each.value.ledger_enabled, false)
-  license_type                 = try(each.value.license_type, null)
-  max_size_gb                  = try(each.value.max_size_gb, null)
-  min_capacity                 = try(each.value.min_capacity, null)
-  restore_point_in_time        = try(each.value.restore_point_in_time, null)
-  recover_database_id          = try(each.value.recover_database_id, null)
-  recovery_point_id            = try(each.value.recovery_point_id, null)
-  restore_dropped_database_id  = try(each.value.restore_dropped_database_id, null)
+  create_mode                           = try(each.value.create_mode, "Default")
+  collation                             = try(each.value.collation, "SQL_Latin1_General_CP1_CI_AS")
+  enclave_type                          = try(each.value.enclave_type, null)
+  geo_backup_enabled                    = try(each.value.geo_backup_enabled, false)
+  ledger_enabled                        = try(each.value.ledger_enabled, false)
+  license_type                          = try(each.value.license_type, null)
+  max_size_gb                           = try(each.value.max_size_gb, null)
+  min_capacity                          = try(each.value.min_capacity, null)
+  restore_point_in_time                 = try(each.value.restore_point_in_time, null)
+  recover_database_id                   = try(each.value.recover_database_id, null)
+  recovery_point_id                     = try(each.value.recovery_point_id, null)
+  restore_dropped_database_id           = try(each.value.restore_dropped_database_id, null)
   restore_long_term_retention_backup_id = try(each.value.restore_long_term_retention_backup_id, null)
-  read_replica_count           = try(each.value.read_replica_count, null)
-  read_scale                   = try(each.value.read_scale, null)
-  sample_name                  = try(each.value.sample_name, null)
-  sku_name                     = try(each.value.sku_name, null)
-  storage_account_type         = try(each.value.storage_account_type, null)
-  zone_redundant               = try(each.value.zone_redundant, false)
-  secondary_type               = try(each.value.secondary_type, null)
+  read_replica_count                    = try(each.value.read_replica_count, null)
+  read_scale                            = try(each.value.read_scale, null)
+  sample_name                           = try(each.value.sample_name, null)
+  sku_name                              = try(each.value.sku_name, null)
+  storage_account_type                  = try(each.value.storage_account_type, null)
+  zone_redundant                        = try(each.value.zone_redundant, false)
+  secondary_type                        = try(each.value.secondary_type, null)
 
   # auto_pause_delay_in_minutes (serverless)
   auto_pause_delay_in_minutes = try(each.value.auto_pause_delay_in_minutes, null)
@@ -77,12 +77,12 @@ resource "azurerm_mssql_database" "this" {
   dynamic "threat_detection_policy" {
     for_each = each.value.threat_detection_policy != null ? [each.value.threat_detection_policy] : []
     content {
-      state               = try(threat_detection_policy.value.state, "Enabled")
-      disabled_alerts     = try(threat_detection_policy.value.disabled_alerts, [])
-      email_account_admins = try(threat_detection_policy.value.email_account_admins, "Disabled")
-      email_addresses     = try(threat_detection_policy.value.email_addresses, [])
-      retention_days      = try(threat_detection_policy.value.retention_days, 0)
-      storage_endpoint    = try(threat_detection_policy.value.storage_endpoint, null)
+      state                      = try(threat_detection_policy.value.state, "Enabled")
+      disabled_alerts            = try(threat_detection_policy.value.disabled_alerts, [])
+      email_account_admins       = try(threat_detection_policy.value.email_account_admins, "Disabled")
+      email_addresses            = try(threat_detection_policy.value.email_addresses, [])
+      retention_days             = try(threat_detection_policy.value.retention_days, 0)
+      storage_endpoint           = try(threat_detection_policy.value.storage_endpoint, null)
       storage_account_access_key = try(threat_detection_policy.value.storage_account_access_key, null)
     }
   }
@@ -91,9 +91,7 @@ resource "azurerm_mssql_database" "this" {
   # Short-Term Retention Policy
   #############################################################################
   dynamic "short_term_retention_policy" {
-    for_each = each.value.short_term_retention_policy != null
-      ? [each.value.short_term_retention_policy]
-      : []
+    for_each = each.value.short_term_retention_policy != null ? [each.value.short_term_retention_policy] : []
     content {
       retention_days           = try(short_term_retention_policy.value.retention_days, null)
       backup_interval_in_hours = try(short_term_retention_policy.value.backup_interval_in_hours, null)
@@ -104,9 +102,7 @@ resource "azurerm_mssql_database" "this" {
   # Long-Term Retention Policy
   #############################################################################
   dynamic "long_term_retention_policy" {
-    for_each = each.value.long_term_retention_policy != null
-      ? [each.value.long_term_retention_policy]
-      : []
+    for_each = each.value.long_term_retention_policy != null ? [each.value.long_term_retention_policy] : []
     content {
       weekly_retention  = try(long_term_retention_policy.value.weekly_retention, null)
       monthly_retention = try(long_term_retention_policy.value.monthly_retention, null)
